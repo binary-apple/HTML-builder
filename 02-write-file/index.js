@@ -1,6 +1,7 @@
 const { createWriteStream } = require('fs');
 const { resolve } = require('path');
 const { stdin, stdout } = require('process');
+const readline = require('readline');
 
 const DEST_FILE = 'text.txt';
 
@@ -10,15 +11,18 @@ const writeFile = () => {
     `Hello! Type somethimg, press 'Enter' and see the result in ${DEST_FILE}\n`,
   );
 
-  stdin.on('data', (data) => {
-    if (data == 'exit\r\n' || data == 'exit\n' || data == 'exit\r') {
+  const rl = readline.createInterface({ input: stdin, output: outStream });
+
+  rl.on('line', (line) => {
+    if (line === 'exit') {
       process.emit('SIGINT');
     }
-    outStream.write(data);
+    outStream.write(line + '\n');
   });
 
   process.on('SIGINT', () => {
-    console.log('Thank you! Bye!');
+    rl.close();
+    stdout.write('Thank you! Bye!');
     process.exit();
   });
 };
