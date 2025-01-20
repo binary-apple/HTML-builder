@@ -12,10 +12,7 @@ const copyDirectory = async (folderFrom, folderTo) => {
     const files = await readdir(folderFrom, { withFileTypes: true });
     for (const file of files) {
       if (file.isFile()) {
-        copyFile(
-          resolve(__dirname, FOLDER_FROM, file.name),
-          resolve(__dirname, FOLDER_TO, file.name),
-        );
+        copyFile(resolve(folderFrom, file.name), resolve(folderTo, file.name));
       } else {
         copyDirectory(
           resolve(folderFrom, file.name),
@@ -29,3 +26,5 @@ const copyDirectory = async (folderFrom, folderTo) => {
 };
 
 copyDirectory(resolve(__dirname, FOLDER_FROM), resolve(__dirname, FOLDER_TO));
+
+module.exports = copyDirectory;
