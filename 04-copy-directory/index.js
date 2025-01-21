@@ -26,5 +26,3 @@ const copyDirectory = async (folderFrom, folderTo) => {
 };
 
 copyDirectory(resolve(__dirname, FOLDER_FROM), resolve(__dirname, FOLDER_TO));
-
-module.exports = copyDirectory;
