@@ -51,7 +51,7 @@ const mergeStyles = async () => {
 };
 
 const buildPage = async () => {
-  await mkdir(RESULT_FOLDER);
+  await mkdir(RESULT_FOLDER, { recursive: true });
 
   await copyDirectory(
     resolve(__dirname, 'assets'),
